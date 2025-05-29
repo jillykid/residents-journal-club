@@ -1,1 +1,88 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Artiklar och presentationer – Journal Club</title>
+  <style>
+    body {
+      font-family: system-ui, sans-serif;
+      margin: 0;
+      padding: 1rem;
+      background: #f9f9f9;
+      color: #222;
+    }
+    header {
+      background-color: #003366;
+      color: white;
+      padding: 1rem;
+      text-align: center;
+    }
+    h1 {
+      font-size: 1.5rem;
+      margin: 0;
+    }
+    .section {
+      max-width: 800px;
+      background: white;
+      margin: 2rem auto;
+      padding: 1.25rem;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    }
+    h2 {
+      border-bottom: 2px solid #ccc;
+      padding-bottom: 0.3rem;
+    }
+    .entry {
+      margin-bottom: 1.5rem;
+    }
+    a {
+      color: #0056cc;
+      text-decoration: none;
+    }
+    a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Artiklar och presentationer</h1>
+  </header>
+
+  <section class="section">
+    <div id="articles-content">Laddar...</div>
+    <p><a href="index.html">← Tillbaka till startsidan</a></p>
+  </section>
+
+  <script>
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbwc2NQL5Kd1Zx5F-Rd8k4VGunhBWGg-WrykQqjtY8nVr9Zkby-U3tUwk7iTfEN9Nmr7ng/exec';
+
+    async function fetchArticles() {
+      try {
+        const res = await fetch(`${scriptURL}?sheet=Artiklar och Presentationer`);
+        return await res.json();
+      } catch (error) {
+        console.error('Fetch error:', error);
+        return [];
+      }
+    }
+
+    function renderArticles(data) {
+      const container = document.getElementById('articles-content');
+      container.innerHTML = data.map(row => `
+        <div class="entry">
+          <strong>${row.Datum}:</strong> <a href="${row['Länk till artikel']}" target="_blank">${row['Artikeltitel']}</a>
+          av ${row['Presentatör']} [<a href="${row['Länk till presentation']}" target="_blank">Presentation</a>]
+        </div>`).join('');
+    }
+
+    (async function init() {
+      const articles = await fetchArticles();
+      renderArticles(articles);
+    })();
+  </script>
+</body>
+</html>
 

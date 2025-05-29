@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Tips och inspiration – Journal Club</title>
+  <title>Tips och Inspiration</title>
   <style>
     body {
       font-family: system-ui, sans-serif;
@@ -34,54 +34,63 @@
       border-bottom: 2px solid #ccc;
       padding-bottom: 0.3rem;
     }
-    .entry {
-      margin-bottom: 1.5rem;
+    form label {
+      display: block;
+      margin-top: 1rem;
+      font-weight: bold;
     }
-    a {
-      color: #0056cc;
-      text-decoration: none;
+    form input, form textarea {
+      width: 100%;
+      padding: 0.5rem;
+      margin-top: 0.25rem;
+      border: 1px solid #ccc;
+      border-radius: 4px;
     }
-    a:hover {
-      text-decoration: underline;
+    form button {
+      margin-top: 1rem;
+      padding: 0.5rem 1rem;
+      background-color: #003366;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    form button:hover {
+      background-color: #002244;
     }
   </style>
 </head>
 <body>
   <header>
-    <h1>Tips och inspiration</h1>
+    <h1>Tips och Inspiration</h1>
   </header>
-
   <section class="section">
-    <div id="tips-content">Laddar...</div>
-    <p><a href="index.html">← Tillbaka till startsidan</a></p>
+    <p>Har du nyligen läst en översiktsartikel, en aktuell studie, en debattartikel eller hört ett avsnitt av en psykiatripodd som verkligen gjorde intryck? Eller kanske blivit inspirerad eller upplyst av en dokumentär, film eller tv-serie med psykiatrisk anknytning?</p>
+    <p>Dela gärna dina tips här så kan de lyftas i Journal Club eller läggas till i inspirationssamlingen.</p>
+
+    <form name="tipsForm">
+      <label for="datum">Datum</label>
+      <input type="date" id="datum" name="Datum">
+
+      <label for="titel">Titel / Namn på resurs</label>
+      <input type="text" id="titel" name="Titel" required>
+
+      <label for="lank">Länk (om tillgänglig)</label>
+      <input type="url" id="lank" name="Länk">
+
+      <label for="kategori">Kategori (artikel, podd, bok, film etc.)</label>
+      <input type="text" id="kategori" name="Kategori">
+
+      <label for="kommentar">Varför är detta intressant eller inspirerande?</label>
+      <textarea id="kommentar" name="Kommentar" rows="4"></textarea>
+
+      <label for="namn">Förnamn (valfritt)</label>
+      <input type="text" id="namn" name="Namn">
+
+      <button type="submit">Skicka in</button>
+    </form>
+
+    <p style="margin-top: 2rem;"><a href="index.html">&larr; Tillbaka till startsidan</a></p>
   </section>
-
-  <script>
-    const scriptURL = 'https://script.google.com/macros/s/AKfycbwc2NQL5Kd1Zx5F-Rd8k4VGunhBWGg-WrykQqjtY8nVr9Zkby-U3tUwk7iTfEN9Nmr7ng/exec';
-
-    async function fetchTips() {
-      try {
-        const res = await fetch(`${scriptURL}?sheet=Tips och inspiration`);
-        return await res.json();
-      } catch (error) {
-        console.error('Fetch error:', error);
-        return [];
-      }
-    }
-
-    function renderTips(data) {
-      const container = document.getElementById('tips-content');
-      container.innerHTML = data.map(row => `
-        <div class="entry">
-          <strong>${row.Datum}:</strong> [${row.Typ}] <a href="${row.Länk}" target="_blank">${row.Titel}</a><br />
-          ${row.Sammanfattning}
-        </div>`).join('');
-    }
-
-    (async function init() {
-      const tips = await fetchTips();
-      renderTips(tips);
-    })();
-  </script>
 </body>
 </html>

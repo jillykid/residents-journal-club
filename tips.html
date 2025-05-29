@@ -54,6 +54,8 @@
     <p>Har du nyligen läst en översiktsartikel, en aktuell studie, en debattartikel eller hört ett avsnitt av en psykiatripodd som verkligen gjorde intryck? Eller kanske blivit inspirerad eller upplyst av en dokumentär, film eller tv-serie med psykiatrisk anknytning?</p>
     <p>Dela gärna dina tips här så kan de lyftas i Journal Club eller läggas till i inspirationssamlingen.</p>
 
+    <p>Kontakt: <a href="mailto:jill.howlin@skane.se">Jill Howlin</a> eller <a href="mailto:mark.kisch@skane.se">Mark Kisch</a></p>
+
     <div id="tips-list">
       <h2 style="margin-top: 2rem;">Inkomna Tips</h2>
       <div id="tips-content">Laddar...</div>
@@ -68,6 +70,9 @@
     async function loadTips() {
       try {
         const res = await fetch(scriptURL + '?sheet=Tips%20och%20inspiration');
+        if (!res.ok) {
+          throw new Error(`HTTP error! status: ${res.status}`);
+        }
         const tips = await res.json();
         const container = document.getElementById('tips-content');
         container.innerHTML = tips.reverse().map(row => `
@@ -88,4 +93,5 @@
   </script>
 </body>
 </html>
+
 

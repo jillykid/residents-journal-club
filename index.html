@@ -1,45 +1,41 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="sv">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Journal Club</title>
+  <title>Journal Club Psykiatri Malmö</title>
   <style>
-    * {
-      box-sizing: border-box;
-    }
     body {
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen;
+      font-family: system-ui, sans-serif;
       margin: 0;
       padding: 1rem;
       background: #f9f9f9;
-      color: #333;
+      color: #222;
     }
     header {
-      text-align: center;
-      background: #004080;
+      background: #003366;
       color: white;
-      padding: 1rem 0;
+      padding: 1rem;
+      text-align: center;
     }
     h1 {
       font-size: 1.75rem;
-      margin: 0;
-    }
-    h2 {
-      margin-top: 2rem;
-      font-size: 1.25rem;
-      border-bottom: 2px solid #ddd;
-      padding-bottom: 0.25rem;
     }
     .section {
-      padding: 1rem;
       background: white;
+      margin: 1.5rem auto;
+      padding: 1.25rem;
       border-radius: 8px;
-      margin-bottom: 1.5rem;
+      max-width: 800px;
       box-shadow: 0 2px 4px rgba(0,0,0,0.05);
     }
+    h2 {
+      border-bottom: 2px solid #ddd;
+      padding-bottom: 0.3rem;
+      font-size: 1.25rem;
+    }
     .entry {
-      margin-bottom: 1em;
+      margin-bottom: 1rem;
     }
     a {
       color: #0056cc;
@@ -47,6 +43,9 @@
     }
     a:hover {
       text-decoration: underline;
+    }
+    ul {
+      padding-left: 1.25rem;
     }
     @media (max-width: 600px) {
       body {
@@ -63,35 +62,38 @@
 </head>
 <body>
   <header>
-    <h1>Residents' Journal Club</h1>
+    <h1>Journal Club för ST-läkare i Psykiatri, Malmö</h1>
   </header>
 
-  <main>
-    <section class="section" id="articles">
-      <h2>Articles and Presentations</h2>
-      <div id="articles-content">Loading...</div>
-    </section>
+  <section class="section">
+    <h2>Om Journal Club</h2>
+    <p>Journal Clubs är ett värdefullt format för att gemensamt hålla oss uppdaterade kring forskning, utveckla kritisk granskningsförmåga samt främja interkollegialt lärande och vetenskaplig förankring på kliniken.</p>
+    <p>Journal Club hålls på fredagar efter APT kl. 13–14 enligt ett löpande schema var tredje vecka i Psykiatrihuset, Jan Waldenströms gata 6, samt via Teams-länk.</p>
+    <p>Ansvariga ST-läkare: Jill Howlin & Mark Kisch</p>
+  </section>
 
-    <section class="section" id="schedule">
-      <h2>Schedule</h2>
-      <div id="schedule-content">Loading...</div>
-    </section>
+  <section class="section" id="articles">
+    <h2>Articles and Presentations</h2>
+    <div id="articles-content">Loading...</div>
+  </section>
 
-    <section class="section" id="this-week">
-      <h2>This Week in Psychiatry!</h2>
-      <div id="this-week-content">Loading...</div>
-    </section>
-  </main>
+  <section class="section" id="schedule">
+    <h2>Schedule</h2>
+    <div id="schedule-content">Loading...</div>
+  </section>
 
-  <!-- Script from working version -->
+  <section class="section" id="this-week">
+    <h2>This Week in Psychiatry!</h2>
+    <div id="this-week-content">Loading...</div>
+  </section>
+
   <script>
     const scriptURL = 'https://script.google.com/macros/s/AKfycbwc2NQL5Kd1Zx5F-Rd8k4VGunhBWGg-WrykQqjtY8nVr9Zkby-U3tUwk7iTfEN9Nmr7ng/exec';
 
     async function fetchSheetData(sheetName) {
       try {
         const res = await fetch(`${scriptURL}?sheet=${encodeURIComponent(sheetName)}`);
-        const data = await res.json();
-        return data;
+        return await res.json();
       } catch (error) {
         console.error('Fetch failed:', error);
         return [];

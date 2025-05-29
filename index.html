@@ -1,75 +1,46 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Journal Club</title>
-  <style>
-    body { font-family: Arial, sans-serif; margin: 2rem; line-height: 1.6; }
-    h2 { border-bottom: 2px solid #ccc; padding-bottom: 0.3em; margin-top: 2em; }
-    .entry { margin-bottom: 1em; }
-    a { color: #0645ad; text-decoration: none; }
-    a:hover { text-decoration: underline; }
-  </style>
-</head>
-<body>
-  <h1>Journal Club</h1>
+<script>
+  const scriptURL = 'https://script.google.com/macros/s/AKfycbwc2NQL5Kd1Zx5F-Rd8k4VGunhBWGg-WrykQqjtY8nVr9Zkby-U3tUwk7iTfEN9Nmr7ng/exec';
 
-  <section id="articles">
-    <h2>Articles and Presentations</h2>
-    <div id="articles-content">Loading...</div>
-  </section>
-
-  <section id="schedule">
-    <h2>Schedule</h2>
-    <div id="schedule-content">Loading...</div>
-  </section>
-
-  <section id="this-week">
-    <h2>This Week in Psychiatry!</h2>
-    <div id="this-week-content">Loading...</div>
-  </section>
-
-  <script>
-    const scriptURL = 'https://script.google.com/macros/s/AKfycbwc2NQL5Kd1Zx5F-Rd8k4VGunhBWGg-WrykQqjtY8nVr9Zkby-U3tUwk7iTfEN9Nmr7ng/exec'; // Replace with your deployed Apps Script URL
-
-    async function fetchSheetData(sheetName) {
+  async function fetchSheetData(sheetName) {
+    try {
       const res = await fetch(`${scriptURL}?sheet=${encodeURIComponent(sheetName)}`);
-      return await res.json();
+      const data = await res.json();
+      return data;
+    } catch (error) {
+      console.error('Fetch failed:', error);
+      return [];
     }
+  }
 
-    function renderArticles(data) {
-      const container = document.getElementById('articles-content');
-      container.innerHTML = data.map(row => `
-        <div class="entry">
-          <strong>${row.Date}:</strong> <a href="${row['Link to Article']}" target="_blank">${row['Article Title']}</a>
-          by ${row['Presenter Name']} [<a href="${row['Link to Presentation']}" target="_blank">Presentation</a>]
-        </div>`).join('');
-    }
+  function renderArticles(data) {
+    const container = document.getElementById('articles-content');
+    container.innerHTML = data.map(row => `
+      <div class="entry">
+        <strong>${row.Date}:</strong> <a href="${row['Link to Article']}" target="_blank">${row['Article Title']}</a>
+        by ${row['Presenter Name']} [<a href="${row['Link to Presentation']}" target="_blank">Presentation</a>]
+      </div>`).join('');
+  }
 
-    function renderSchedule(data) {
-      const container = document.getElementById('schedule-content');
-      container.innerHTML = data.map(row => `
-        <div class="entry">
-          <strong>${row.Date}</strong>: ${row['Presenter Name']} — ${row['Topic/Title']} (${row.Confirmed})
-        </div>`).join('');
-    }
+  function renderSchedule(data) {
+    const container = document.getElementById('schedule-content');
+    container.innerHTML = data.map(row => `
+      <div class="entry">
+        <strong>${row.Date}</strong>: ${row['Presenter Name']} — ${row['Topic/Title']} (${row.Confirmed})
+      </div>`).join('');
+  }
 
-    function renderThisWeek(data) {
-      const container = document.getElementById('this-week-content');
-      container.innerHTML = data.map(row => `
-        <div class="entry">
-          <strong>${row.Date}:</strong> [${row.Type}] <a href="${row.Link}" target="_blank">${row.Title}</a>
-          <br />
-          ${row.Summary}
-        </div>`).join('');
-    }
+  function renderThisWeek(data) {
+    const container = document.getElementById('this-week-content');
+    container.innerHTML = data.map(row => `
+      <div class="entry">
+        <strong>${row.Date}:</strong> [${row.Type}] <a href="${row.Link}" target="_blank">${row.Title}</a>
+        <br />${row.Summary}
+      </div>`).join('');
+  }
 
-    (async function init() {
-      renderArticles(await fetchSheetData('Articles and Presentations'));
-      renderSchedule(await fetchSheetData('Schedule'));
-      renderThisWeek(await fetchSheetData('This Week in Psychiatry!'));
-    })();
-  </script>
-</body>
-</html>
+  (async function init() {
+    renderArticles(await fetchSheetData('Articles and Presentations'));
+    renderSchedule(await fetchSheetData('Schedule'));
+    renderThisWeek(await fetchSheetData('This Week in Psychiatry!'));
+  })();
+</script>

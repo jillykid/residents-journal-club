@@ -68,60 +68,55 @@
   <section class="section">
     <h2>Om Journal Club</h2>
     <p>Journal Clubs är ett värdefullt format för att gemensamt hålla oss uppdaterade kring forskning, utveckla kritisk granskningsförmåga samt främja interkollegialt lärande och vetenskaplig förankring på kliniken.</p>
-    <p>Journal Club hålls på fredagar efter APT kl. 13–14 enligt ett löpande schema cirka en gång per månad i Psykiatrihuset, Jan Waldenströms gata 6, samt via Teams-länk.</p> <p><a href="more-info.html">Läs mer om upplägg och resurser →</a></p>
-    
+    <p>Journal Club hålls på fredagar efter APT kl. 13–14 enligt ett löpande schema cirka en gång per månad i Psykiatrihuset, Jan Waldenströms gata 6, samt via Teams-länk.</p>
+    <p><a href="more-info.html">Läs mer om upplägg och resurser →</a></p>
   </section>
 
   <section class="section" id="articles">
-    <h2>Articles and Presentations</h2>
+    <h2>Artiklar och Presentationer</h2>
     <div id="articles-content">Loading...</div>
   </section>
 
-  <section class="section" id="schedule">
-    <h2>Schedule</h2>
-    <div id="schedule-content">Loading...</div>
+  <section class="section" id="schema">
+    <h2>Schema</h2>
+    <div id="schema-content">Loading...</div>
   </section>
 
-  <section class="section" id="this-week">
-    <h2>This Week in Psychiatry!</h2>
-    <div id="this-week-content">Loading...</div>
-  </section>
+  <!-- JavaScript for loading content -->
+  <script>
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbwc2NQL5Kd1Zx5F-Rd8k4VGunhBWGg-WrykQqjtY8nVr9Zkby-U3tUwk7iTfEN9Nmr7ng/exec';
 
-
-<script>
-  const scriptURL = 'https://script.google.com/macros/s/AKfycbwc2NQL5Kd1Zx5F-Rd8k4VGunhBWGg-WrykQqjtY8nVr9Zkby-U3tUwk7iTfEN9Nmr7ng/exec';
-
-  async function fetchSheetData(sheetName) {
-    try {
-      const res = await fetch(`${scriptURL}?sheet=${encodeURIComponent(sheetName)}`);
-      return await res.json();
-    } catch (error) {
-      console.error('Fetch failed:', error);
-      return [];
+    async function fetchSheetData(sheetName) {
+      try {
+        const res = await fetch(`${scriptURL}?sheet=${encodeURIComponent(sheetName)}`);
+        return await res.json();
+      } catch (error) {
+        console.error('Fetch failed:', error);
+        return [];
+      }
     }
-  }
 
-  function renderArticles(data) {
-    const container = document.getElementById('articles-content');
-    container.innerHTML = data.map(row => `
-      <div class="entry">
-        <strong>${row.Datum}:</strong> <a href="${row['Länk till artikel']}" target="_blank">${row['Artikeltitel']}</a>
-        av ${row['Presentatör']} [<a href="${row['Länk till presentation']}" target="_blank">Presentation</a>]
-      </div>`).join('');
-  }
+    function renderArticles(data) {
+      const container = document.getElementById('articles-content');
+      container.innerHTML = data.map(row => `
+        <div class="entry">
+          <strong>${row.Datum}:</strong> <a href="${row['Länk till artikel']}" target="_blank">${row['Artikeltitel']}</a>
+          av ${row['Presentatör']} [<a href="${row['Länk till presentation']}" target="_blank">Presentation</a>]
+        </div>`).join('');
+    }
 
-  function renderSchedule(data) {
-    const container = document.getElementById('schema-content');
-    container.innerHTML = data.map(row => `
-      <div class="entry">
-        <strong>${row.Datum}</strong>: ${row['Presentatör']} — ${row['Titel']}
-      </div>`).join('');
-  }
+    function renderSchedule(data) {
+      const container = document.getElementById('schema-content');
+      container.innerHTML = data.map(row => `
+        <div class="entry">
+          <strong>${row.Datum}</strong>: ${row['Presentatör']} — ${row['Titel']}
+        </div>`).join('');
+    }
 
-  (async function init() {
-    renderArticles(await fetchSheetData('Artiklar och Presentationer'));
-    renderSchedule(await fetchSheetData('Schema'));
-  })();
-</script>
+    (async function init() {
+      renderArticles(await fetchSheetData('Artiklar och Presentationer'));
+      renderSchedule(await fetchSheetData('Schema'));
+    })();
+  </script>
 </body>
 </html>

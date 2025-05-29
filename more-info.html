@@ -3,13 +3,13 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Mer om Journal Club</title>
+  <title>Mer info – Journal Club</title>
   <style>
     body {
       font-family: system-ui, sans-serif;
       margin: 0;
       padding: 1rem;
-      background: #f4f4f4;
+      background: #f9f9f9;
       color: #222;
     }
     header {
@@ -18,56 +18,130 @@
       padding: 1rem;
       text-align: center;
     }
-    main {
+    h1 {
+      font-size: 1.5rem;
+      margin: 0;
+    }
+    .section {
       max-width: 800px;
-      margin: 2rem auto;
       background: white;
+      margin: 2rem auto;
       padding: 1.25rem;
       border-radius: 8px;
       box-shadow: 0 2px 4px rgba(0,0,0,0.05);
     }
-    h1, h2 {
-      color: #003366;
+    h2 {
+      border-bottom: 2px solid #ccc;
+      padding-bottom: 0.3rem;
     }
     a {
       color: #0056cc;
+      text-decoration: none;
     }
-    ul {
-      padding-left: 1.25rem;
+    a:hover {
+      text-decoration: underline;
     }
   </style>
 </head>
 <body>
   <header>
-    <h1>Mer om Journal Club</h1>
+    <h1>Journal Club – Upplägg och resurser</h1>
   </header>
-  <main>
-    <h2>Format och roller</h2>
+  <section class="section">
+
+    <h2>Format</h2>
     <ul>
-      <li>Presentatören väljer och skickar ut en artikel en vecka i förväg</li>
-      <li>Förbereder en presentation (bakgrund, metod, resultat, relevans, begränsningar)</li>
-      <li>Åhörare förväntas läsa artikeln, bidra med kommentarer och delta aktivt</li>
+      <li>ST-läkare presenterar en artikel (20–30 min)</li>
+      <li>Diskussion i grupp (20–30 min)</li>
+      <li>Ansvariga hjälper till att hålla tiden och leda diskussionen</li>
+    </ul>
+
+    <h2>Presentatörens ansvar</h2>
+    <ol>
+      <li>Välj en relevant artikel och maila ut minst 1 vecka före</li>
+      <li>Förbered en strukturerad presentation:
+        <ul>
+          <li>Forskningsfråga och bakgrund</li>
+          <li>Metodik</li>
+          <li>Resultat</li>
+          <li>Styrkor och begränsningar</li>
+          <li>Kliniska implikationer</li>
+        </ul>
+      </li>
+      <li>Förbered diskussionsfrågor</li>
+    </ol>
+
+    <h2>Åhörarens ansvar</h2>
+    <ul>
+      <li>Läs artikeln i förväg</li>
+      <li>Förbered minst en fråga eller kommentar</li>
+      <li>Delta aktivt</li>
+      <li>Ge återkoppling</li>
     </ul>
 
     <h2>Riktlinjer för artikelval</h2>
-    <p>Välj artiklar som är aktuella, kliniskt relevanta, från respekterade källor och metodologiskt välgrundade.</p>
     <ul>
-      <li>Exempel: JAMA Psychiatry, The Lancet Psychiatry, Schizophrenia Bulletin m.fl.</li>
+      <li>Publicerad inom senaste 5 åren (om möjligt)</li>
+      <li>Kliniskt relevant eller viktig preklinisk forskning</li>
+      <li>Metodologiskt robust</li>
+      <li>Peer-reviewad</li>
     </ul>
 
-    <h2>AI-verktyg och resurser</h2>
+    <h2>Exempel på psykiatriska tidskrifter</h2>
     <ul>
-      <li>LM Notebook – skapa AI-genererade diskussioner</li>
-      <li>Perplexity – hitta relaterade översikter och forskare</li>
-      <li>Claude, ChatGPT – tolkning, visualisering, analys</li>
+      <li><a href="https://jamanetwork.com/journals/jamapsychiatry">JAMA Psychiatry</a></li>
+      <li><a href="https://ajp.psychiatryonline.org/">American Journal of Psychiatry</a></li>
+      <li><a href="https://www.thelancet.com/journals/lanpsy/home">The Lancet Psychiatry</a></li>
+      <li><a href="https://www.cambridge.org/core/journals/the-british-journal-of-psychiatry">British Journal of Psychiatry</a></li>
+      <li>Psychological Medicine, Schizophrenia Bulletin, Molecular Psychiatry m.fl.</li>
     </ul>
 
-    <h2>Kontakt</h2>
-    <p>För frågor: Jill Howlin och Mark Kisch<br>
-    <a href="mailto:jillian.howlin@skane.se">jillian.howlin@skane.se</a><br>
-    <a href="mailto:Mark.Kisch@skane.se">Mark.Kisch@skane.se</a></p>
+    <h2>Populära psykiatripoddar</h2>
+    <ul>
+      <li><a href="https://www.psychiatrypodcast.com/">Psychiatry & Psychotherapy Podcast</a></li>
+      <li><a href="https://www.thecarlatreport.com/podcast/">The Carlat Psychiatry Podcast</a></li>
+      <li><a href="https://open.spotify.com/show/7lzv8HKEzNPOAQVpUdrzMv">Psychopharmacology and Psychiatry Updates</a></li>
+      <li><a href="https://open.spotify.com/show/4Mp9NRO80QqlG2FtI7IcJP">Psykiatripodden</a></li>
+      <li><a href="https://jamanetwork.com/journals/jamapsychiatry/pages/jama-psychiatry-author-interviews">JAMA Psychiatry Podcast</a></li>
+      <li><a href="https://open.spotify.com/show/4Vjlz4CO0G5D6nGo74O0jE">Psykiatri Boot Camp</a></li>
+      <li><a href="https://www.psychedpodcast.org/">Psychedpod</a></li>
+    </ul>
 
-    <p><a href="index.html">← Tillbaka till startsidan</a></p>
-  </main>
+    <h2>AI-verktyg och tips</h2>
+    <h3>Google LM Notebook</h3>
+    <ul>
+      <li>Ladda upp artikeln</li>
+      <li>Skapa diskussionsfrågor</li>
+      <li>Simulera AI-dialog</li>
+      <li>Spela in AI-diskussionen</li>
+    </ul>
+
+    <h3>Perplexity</h3>
+    <ul>
+      <li>Sök forskningskonsensus</li>
+      <li>Hitta systematiska översikter</li>
+      <li>Identifiera viktiga forskare</li>
+      <li>Sammanfatta artikelns kontext</li>
+    </ul>
+
+    <h3>Claude, ChatGPT m.fl.</h3>
+    <ul>
+      <li>Förklara statistik</li>
+      <li>Identifiera metodologiska svagheter</li>
+      <li>Visualisera resultat</li>
+      <li>Skapa presentationer</li>
+    </ul>
+
+    <p>Verktyg: <a href="https://notebooklm.google.com/">LM Notebook</a>, <a href="https://www.perplexity.ai/">Perplexity AI</a>, <a href="https://claude.ai/">Claude</a>, <a href="https://chatgpt.com/">ChatGPT</a></p>
+
+    <h2>Ramverk för kritisk granskning</h2>
+    <ul>
+      <li>Validitet – Är designen lämplig?</li>
+      <li>Resultat – Är fynden kliniskt relevanta?</li>
+      <li>Tillämpbarhet – Påverkar det vår praktik?</li>
+    </ul>
+
+    <p><a href="index.html">&larr; Tillbaka till startsidan</a></p>
+  </section>
 </body>
 </html>

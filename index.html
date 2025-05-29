@@ -87,50 +87,41 @@
     <div id="this-week-content">Loading...</div>
   </section>
 
-  <script>
-    const scriptURL = 'https://script.google.com/macros/s/AKfycbwc2NQL5Kd1Zx5F-Rd8k4VGunhBWGg-WrykQqjtY8nVr9Zkby-U3tUwk7iTfEN9Nmr7ng/exec';
 
-    async function fetchSheetData(sheetName) {
-      try {
-        const res = await fetch(`${scriptURL}?sheet=${encodeURIComponent(sheetName)}`);
-        return await res.json();
-      } catch (error) {
-        console.error('Fetch failed:', error);
-        return [];
-      }
+<script>
+  const scriptURL = 'https://script.google.com/macros/s/AKfycbwc2NQL5Kd1Zx5F-Rd8k4VGunhBWGg-WrykQqjtY8nVr9Zkby-U3tUwk7iTfEN9Nmr7ng/exec';
+
+  async function fetchSheetData(sheetName) {
+    try {
+      const res = await fetch(`${scriptURL}?sheet=${encodeURIComponent(sheetName)}`);
+      return await res.json();
+    } catch (error) {
+      console.error('Fetch failed:', error);
+      return [];
     }
+  }
 
-    function renderArticles(data) {
-      const container = document.getElementById('articles-content');
-      container.innerHTML = data.map(row => `
-        <div class="entry">
-          <strong>${row.Date}:</strong> <a href="${row['Link to Article']}" target="_blank">${row['Article Title']}</a>
-          by ${row['Presenter Name']} [<a href="${row['Link to Presentation']}" target="_blank">Presentation</a>]
-        </div>`).join('');
-    }
+  function renderArticles(data) {
+    const container = document.getElementById('articles-content');
+    container.innerHTML = data.map(row => `
+      <div class="entry">
+        <strong>${row.Datum}:</strong> <a href="${row['Länk till artikel']}" target="_blank">${row['Artikeltitel']}</a>
+        av ${row['Presentatör']} [<a href="${row['Länk till presentation']}" target="_blank">Presentation</a>]
+      </div>`).join('');
+  }
 
-    function renderSchedule(data) {
-      const container = document.getElementById('schedule-content');
-      container.innerHTML = data.map(row => `
-        <div class="entry">
-          <strong>${row.Date}</strong>: ${row['Presenter Name']} — ${row['Topic/Title']} (${row.Confirmed})
-        </div>`).join('');
-    }
+  function renderSchedule(data) {
+    const container = document.getElementById('schema-content');
+    container.innerHTML = data.map(row => `
+      <div class="entry">
+        <strong>${row.Datum}</strong>: ${row['Presentatör']} — ${row['Titel']}
+      </div>`).join('');
+  }
 
-    function renderThisWeek(data) {
-      const container = document.getElementById('this-week-content');
-      container.innerHTML = data.map(row => `
-        <div class="entry">
-          <strong>${row.Date}:</strong> [${row.Type}] <a href="${row.Link}" target="_blank">${row.Title}</a>
-          <br />${row.Summary}
-        </div>`).join('');
-    }
-
-    (async function init() {
-      renderArticles(await fetchSheetData('Articles and Presentations'));
-      renderSchedule(await fetchSheetData('Schedule'));
-      renderThisWeek(await fetchSheetData('This Week in Psychiatry!'));
-    })();
-  </script>
+  (async function init() {
+    renderArticles(await fetchSheetData('Artiklar och Presentationer'));
+    renderSchedule(await fetchSheetData('Schema'));
+  })();
+</script>
 </body>
 </html>

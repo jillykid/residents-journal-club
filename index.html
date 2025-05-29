@@ -31,7 +31,8 @@
   </section>
 
   <script>
-    const scriptURL = 'https://script.google.com/macros/s/YOUR_SCRIPT_ID/exec'; // Replace with your deployed Apps Script URL
+    const scriptURL = '
+https://script.google.com/macros/s/AKfycbwc2NQL5Kd1Zx5F-Rd8k4VGunhBWGg-WrykQqjtY8nVr9Zkby-U3tUwk7iTfEN9Nmr7ng/exec'; // Replace with your deployed Apps Script URL
 
     async function fetchSheetData(sheetName) {
       const res = await fetch(`${scriptURL}?sheet=${encodeURIComponent(sheetName)}`);

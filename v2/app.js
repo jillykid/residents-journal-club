@@ -199,7 +199,7 @@
     if (!s) {
       body = el("div", { class: "next-body" }, [
         el("div", { class: "next-title pending", text: "Nästa datum meddelas snart." }),
-        el("p", { class: "meta", style: "margin:0", text: "Journal Club hålls ungefär en fredag i månaden efter APT, kl. 13–14. Under tiden finns alla tidigare artiklar i arkivet." }),
+        el("p", { class: "meta", style: "margin:0", text: "Journal Club hålls ungefär en gång i månaden i anslutning till ST-seminarier/APT, kl. 13–14. Under tiden finns alla tidigare artiklar i arkivet." }),
         el("div", { class: "btn-row" }, [el("a", { class: "btn btn-soft btn-sm", href: "arkiv.html", text: "Till arkivet" })]),
       ]);
     } else {

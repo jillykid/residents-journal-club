@@ -100,13 +100,13 @@
       title: cleanTitle(r.Artikeltitel),
       articleURL: cleanURL(r["Länk till artikel"]),
       slidesURL: cleanURL(r["Länk till presentation"]),
-      slidesNote: cleanURL(r["Länk till presentation"]) ? "" : clean(r["Länk till presentation"]),
+      ref: clean(r.Referens),
     }));
     const byTitle = new Map();
     archive.forEach((a) => { if (a.title) byTitle.set(normKey(a.title), a); });
 
     const schedule = scheduleRows.map((r) => {
-      const s = { date: parseDate(r.Datum), who: clean(r["Presentatör"]), title: cleanTitle(r.Titel), articleURL: "", slidesURL: "", slidesNote: "" };
+      const s = { date: parseDate(r.Datum), who: clean(r["Presentatör"]), title: cleanTitle(r.Titel), articleURL: "", slidesURL: "", ref: "" };
       const match = s.title && byTitle.get(normKey(s.title));
       if (match) {
         // The schedule's date wins; the archive tab supplies links.
@@ -114,6 +114,7 @@
         match.who = s.who || match.who;
         s.articleURL = match.articleURL;
         s.slidesURL = match.slidesURL;
+        s.ref = match.ref;
         match.inSchedule = true;
       }
       return s;
@@ -152,8 +153,7 @@
   function linksFor(s) {
     const items = [];
     if (s.articleURL) items.push(extLink(s.articleURL, "Artikel"));
-    if (s.slidesURL) items.push(extLink(s.slidesURL, "Bilder"));
-    else if (s.date && s.date < today()) items.push(el("span", { class: "muted", text: "Bilder saknas" }));
+    if (s.slidesURL) items.push(extLink(s.slidesURL, "Presentation"));
     return items;
   }
 
@@ -218,6 +218,7 @@
           el("div", {}, [
             el("span", { class: "sr-only", text: WEEKDAYS[s.date.getDay()] + " " + fmtDate(s.date) }),
             el("h2", { class: "next-title" + (s.title ? "" : " pending"), text: s.title || "Artikel meddelas senare" }),
+            s.ref ? el("span", { class: "meta", text: s.ref }) : null,
           ]),
         ]),
         el("div", { class: "person" }, [
@@ -263,6 +264,7 @@
     return el("article", { class: "card" }, [
       el("span", { class: "chip chip-green", text: fmtDate(s.date) || "Datum saknas" }),
       el("h3", { class: "card-title big", text: s.title }),
+      s.ref ? el("span", { class: "ref", text: s.ref }) : null,
       el("span", { class: "meta", text: s.who }),
       el("span", { class: "card-links" }, linksFor(s)),
     ]);
@@ -298,7 +300,7 @@
       const q = clean(search.value).toLowerCase();
       const shown = items.filter((s) =>
         (year === "alla" || (s.date && String(s.date.getFullYear()) === year)) &&
-        (!q || (s.title + " " + s.who).toLowerCase().includes(q)));
+        (!q || (s.title + " " + s.who + " " + s.ref).toLowerCase().includes(q)));
       count.textContent = shown.length + (shown.length === 1 ? " artikel" : " artiklar");
       if (!shown.length) {
         listNode.replaceChildren(el("li", { class: "archive-item notice", text: "Inga träffar." }));
@@ -308,6 +310,7 @@
         el("span", { class: "archive-date", text: fmtDate(s.date) || "—" }),
         el("span", { class: "archive-main" }, [
           el("span", { class: "card-title", text: s.title }),
+          s.ref ? el("span", { class: "ref", text: s.ref }) : null,
           el("span", { class: "person-sm" }, [el("span", { class: "avatar avatar-sm", "aria-hidden": "true", text: initials(s.who) }), document.createTextNode(s.who)]),
         ]),
         el("span", { class: "archive-links" }, linksFor(s)),

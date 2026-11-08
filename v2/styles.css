@@ -197,7 +197,7 @@ main.wrap { padding-top: 48px; padding-bottom: 72px; display: flex; flex-directi
 .card-title { font-weight: 600; line-height: 1.35; }
 .card-title.big { font-family: var(--font-display); font-weight: 700; font-size: 19px; line-height: 1.25; }
 .card-links { display: flex; flex-wrap: wrap; gap: 18px; font-weight: 600; font-size: 15px; margin-top: auto; }
-.card-links .muted, .archive-links .muted { font-weight: 500; color: var(--muted); }
+.ref { font-size: 14px; font-style: italic; color: var(--muted); }
 .person-sm { display: flex; align-items: center; gap: 10px; font-size: 14px; color: var(--muted); }
 
 .banner {

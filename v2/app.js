@@ -106,7 +106,9 @@
     archive.forEach((a) => { if (a.title) byTitle.set(normKey(a.title), a); });
 
     const schedule = scheduleRows.map((r) => {
-      const s = { date: parseDate(r.Datum), who: clean(r["Presentatör"]), title: cleanTitle(r.Titel), articleURL: "", slidesURL: "", ref: "" };
+      const raw = clean(r.Titel);
+      const cancelled = /^inst(ä|a)llt/i.test(raw);
+      const s = { date: parseDate(r.Datum), who: clean(r["Presentatör"]), title: cancelled ? "" : cleanTitle(raw), cancelled, articleURL: "", slidesURL: "", ref: "" };
       const match = s.title && byTitle.get(normKey(s.title));
       if (match) {
         // The schedule's date wins; the archive tab supplies links.
@@ -122,6 +124,7 @@
 
     const t = today();
     const upcoming = schedule.filter((s) => s.date >= t).sort((a, b) => a.date - b.date);
+    const next = upcoming.find((s) => !s.cancelled) || null;
 
     const pastFromSchedule = schedule.filter((s) => s.date < t && s.title && !byTitle.get(normKey(s.title)));
     const past = archive
@@ -129,7 +132,7 @@
       .concat(pastFromSchedule)
       .sort((a, b) => (b.date || 0) - (a.date || 0));
 
-    return { upcoming, past };
+    return { upcoming, next, later: upcoming.filter((s) => s !== next), past };
   }
 
   /* ---------- DOM helpers ---------- */
@@ -245,6 +248,13 @@
       return;
     }
     box.replaceChildren(...list.map((s) => {
+      if (s.cancelled) {
+        return el("div", { class: "card empty" }, [
+          el("span", { class: "card-date", text: fmtLong(s.date) }),
+          el("span", { class: "card-title", text: "Inställt" }),
+          s.who ? el("span", { class: "meta", text: s.who }) : null,
+        ]);
+      }
       if (!s.who) {
         return el("div", { class: "card open" }, [
           el("span", { class: "card-date", text: fmtLong(s.date) }),
@@ -273,9 +283,9 @@
   async function initHome() {
     try {
       const [schedule, archive] = await Promise.all([fetchSheet(CONFIG.sheets.schedule), fetchSheet(CONFIG.sheets.archive)]);
-      const { upcoming, past } = buildSessions(schedule, archive);
-      renderNext(upcoming[0] || null);
-      renderUpcoming(upcoming.slice(1));
+      const { next, later, past } = buildSessions(schedule, archive);
+      renderNext(next);
+      renderUpcoming(later);
       const recent = document.getElementById("recent");
       if (recent) recent.replaceChildren(...past.slice(0, 3).map(archiveCard));
     } catch (e) {

@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tips och Inspiration</title>
+  <style>
+    body {
+      font-family: system-ui, sans-serif;
+      margin: 0;
+      padding: 1rem;
+      background: #f9f9f9;
+      color: #222;
+    }
+    header {
+      background-color: #003366;
+      color: white;
+      padding: 1rem;
+      text-align: center;
+    }
+    h1 {
+      font-size: 1.5rem;
+      margin: 0;
+    }
+    .section {
+      max-width: 800px;
+      background: white;
+      margin: 2rem auto;
+      padding: 1.25rem;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    }
+    h2 {
+      border-bottom: 2px solid #ccc;
+      padding-bottom: 0.3rem;
+    }
+    .entry {
+      margin-top: 1rem;
+      padding: 0.75rem;
+      border: 1px solid #ddd;
+      border-radius: 6px;
+      background: #fefefe;
+    }
+    .entry a {
+      color: #003366;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Tips och Inspiration</h1>
+  </header>
+  <section class="section">
+    <p>Har du nyligen läst en översiktsartikel, en aktuell studie, en debattartikel eller hört ett avsnitt av en psykiatripodd som verkligen gjorde intryck? Eller kanske blivit inspirerad eller upplyst av en dokumentär, film eller tv-serie med psykiatrisk anknytning?</p>
+    <p>Dela gärna dina tips här så kan de lyftas i Journal Club eller läggas till i inspirationssamlingen.</p>
+
+    <p>Kontakt: <a href="mailto:jillian.howlin@skane.se">Jill Howlin</a> eller <a href="mailto:mark.kisch@skane.se">Mark Kisch</a></p>
+
+    <div id="tips-list">
+      <h2 style="margin-top: 2rem;">Inkomna Tips</h2>
+      <div id="tips-content">Laddar...</div>
+    </div>
+
+    <p style="margin-top: 2rem;"><a href="index.html">&larr; Tillbaka till startsidan</a></p>
+  </section>
+
+  <script>
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbwc2NQL5Kd1Zx5F-Rd8k4VGunhBWGg-WrykQqjtY8nVr9Zkby-U3tUwk7iTfEN9Nmr7ng/exec';
+
+    async function loadTips() {
+      try {
+        const res = await fetch(scriptURL + '?sheet=Tips%20och%20inspiration');
+        if (!res.ok) {
+          throw new Error(`HTTP error! status: ${res.status}`);
+        }
+        const tips = await res.json();
+        const container = document.getElementById('tips-content');
+        container.innerHTML = tips.reverse().map(row => `
+          <div class="entry">
+            <strong>${row.Datum}</strong> — <em>${row.Kategori}</em><br>
+            <a href="${row.Länk}" target="_blank">${row.Titel}</a><br>
+            ${row.Kommentar}<br>
+            <small>Tipsat av: ${row.Namn || 'Anonym'}</small>
+          </div>
+        `).join('');
+      } catch (error) {
+        console.error('Error loading tips:', error);
+        document.getElementById('tips-content').textContent = 'Kunde inte hämta tips just nu.';
+      }
+    }
+
+    loadTips();
+  </script>
+</body>
+</html>
+
+

@@ -1,108 +1,92 @@
 <!DOCTYPE html>
 <html lang="sv">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Journal Club Psykiatri Malmö</title>
-  <style>
-    body {
-      font-family: system-ui, sans-serif;
-      margin: 0;
-      padding: 1rem;
-      background: #f9f9f9;
-      color: #222;
-    }
-    header {
-      background: #003366;
-      color: white;
-      padding: 1rem;
-      text-align: center;
-    }
-    h1 {
-      font-size: 1.75rem;
-    }
-    .section {
-      background: white;
-      margin: 1.5rem auto;
-      padding: 1.25rem;
-      border-radius: 8px;
-      max-width: 800px;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-    }
-    h2 {
-      border-bottom: 2px solid #ddd;
-      padding-bottom: 0.3rem;
-      font-size: 1.25rem;
-    }
-    .entry {
-      margin-bottom: 1rem;
-    }
-    a {
-      color: #0056cc;
-      text-decoration: none;
-    }
-    a:hover {
-      text-decoration: underline;
-    }
-    ul {
-      padding-left: 1.25rem;
-    }
-    @media (max-width: 600px) {
-      body {
-        padding: 0.5rem;
-      }
-      h1 {
-        font-size: 1.5rem;
-      }
-      h2 {
-        font-size: 1.1rem;
-      }
-    }
-  </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Journal Club – Psykiatri Malmö</title>
+  <meta name="description" content="Journal Club för ST-läkare i psykiatri i Malmö: schema, artiklar och presentationer.">
+  <meta name="theme-color" content="#1E5B4F">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css?v=5">
 </head>
-<body>
-  <header>
-    <h1>Journal Club för ST-läkare i Psykiatri, Malmö</h1>
+<body data-page="home">
+  <header class="wrap site-header">
+    <a class="brand" href="index.html">
+      <img src="favicon.svg" width="40" height="40" alt="">
+      <span class="brand-name">Journal Club</span>
+    </a>
+    <nav class="nav" aria-label="Huvudmeny">
+      <a href="index.html" aria-current="page">Schema</a>
+      <a href="arkiv.html">Arkiv</a>
+      <a href="upplagg.html">Upplägg</a>
+      <a href="tips.html">Tips</a>
+    </nav>
   </header>
 
-  <section class="section">
-    <h2>Om Journal Club</h2>
-    <p>Journal Clubs är ett värdefullt format för att gemensamt hålla oss uppdaterade kring forskning, utveckla kritisk granskningsförmåga samt främja interkollegialt lärande och vetenskaplig förankring på kliniken.</p>
-    <p>Journal Club hålls på fredagar efter APT kl. 13–14 enligt ett löpande schema cirka en gång per månad i Psykiatrihuset, Jan Waldenströms gata 6, samt via Teams-länk.</p>
-    <p><a href="more-info.html">Läs mer om upplägg och resurser →</a></p>
-    <p><a href="artiklar.html">Visa alla artiklar och presentationer →</a></p>
-    <p><a href="tips.html">Tips och Inspiration →</a></p>
-  </section>
+  <main class="wrap">
+    <section class="hero">
+      <div class="hero-text">
+        <span class="chip">ST-läkare i psykiatri · Malmö</span>
+        <h1>Läs. Granska.<br>Diskutera.</h1>
+        <p class="lede">Vi håller oss uppdaterade kring forskningen och tränar kritisk granskning tillsammans – ungefär en gång i månaden i anslutning till ST-seminarier/APT, kl. 13–14 i Psykiatrihuset och via Teams.</p>
+        <div class="btn-row">
+          <a class="btn btn-primary" href="#kommande">Se schemat</a>
+          <a class="btn btn-light" href="upplagg.html">Så går det till</a>
+        </div>
+      </div>
 
-  <section class="section" id="schema">
-    <h2>Schema</h2>
-    <div id="schema-content">Loading...</div>
-  </section>
+      <article class="next-card" id="next-card" aria-label="Nästa Journal Club" aria-live="polite">
+        <div class="next-top"><span class="eyebrow">Nästa tillfälle</span></div>
+        <div class="next-body">
+          <div class="next-main">
+            <div class="date-tile skeleton"></div>
+            <div style="flex:1"><div class="skeleton" style="height:56px"></div></div>
+          </div>
+          <div class="skeleton" style="height:44px;width:60%"></div>
+        </div>
+      </article>
+    </section>
 
-  <script>
-    const scriptURL = 'https://script.google.com/macros/s/AKfycbwc2NQL5Kd1Zx5F-Rd8k4VGunhBWGg-WrykQqjtY8nVr9Zkby-U3tUwk7iTfEN9Nmr7ng/exec';
+    <section class="stack" id="kommande" aria-labelledby="h-kommande">
+      <div class="section-head">
+        <h2 id="h-kommande">Kommande</h2>
+      </div>
+      <div class="grid-cards" id="upcoming">
+        <div class="card skeleton" style="height:150px"></div>
+        <div class="card skeleton" style="height:150px"></div>
+        <div class="card skeleton" style="height:150px"></div>
+      </div>
+    </section>
 
-    async function fetchSheetData(sheetName) {
-      try {
-        const res = await fetch(`${scriptURL}?sheet=${encodeURIComponent(sheetName)}`);
-        return await res.json();
-      } catch (error) {
-        console.error('Fetch failed:', error);
-        return [];
-      }
-    }
+    <section class="stack" aria-labelledby="h-nyligen">
+      <div class="section-head">
+        <h2 id="h-nyligen">Nyligen diskuterat</h2>
+        <a href="arkiv.html">Hela arkivet →</a>
+      </div>
+      <div class="grid-cards wide" id="recent">
+        <div class="card skeleton" style="height:200px"></div>
+        <div class="card skeleton" style="height:200px"></div>
+        <div class="card skeleton" style="height:200px"></div>
+      </div>
+    </section>
 
-    function renderSchedule(data) {
-      const container = document.getElementById('schema-content');
-      container.innerHTML = data.map(row => `
-        <div class="entry">
-          <strong>${row.Datum}</strong>: ${row['Presentatör']} — ${row['Titel']}
-        </div>`).join('');
-    }
+    <section class="banner">
+      <div>
+        <h2>Dags att presentera?</h2>
+        <p>Checklista för presentationen, riktlinjer för artikelval och tips på verktyg.</p>
+      </div>
+      <a class="btn btn-peach" href="upplagg.html">Presentatörens guide</a>
+    </section>
+  </main>
 
-    (async function init() {
-      renderSchedule(await fetchSheetData('Schema'));
-    })();
-  </script>
+  <footer class="wrap site-footer">
+    <span>Journal Club för ST-läkare i psykiatri, Malmö</span>
+    <a href="https://www.zotero.org/groups/6009767/psykiatrijournalclub/library" target="_blank" rel="noopener">Zotero-biblioteket</a>
+  </footer>
+
+  <script src="app.js?v=5"></script>
 </body>
 </html>

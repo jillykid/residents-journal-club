@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Arkiv – Journal Club Psykiatri Malmö</title>
+  <meta name="theme-color" content="#1E5B4F">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body data-page="archive">
+  <header class="wrap site-header">
+    <a class="brand" href="index.html">
+      <img src="favicon.svg" width="40" height="40" alt="">
+      <span class="brand-name">Journal Club</span>
+    </a>
+    <nav class="nav" aria-label="Huvudmeny">
+      <a href="index.html">Schema</a>
+      <a href="arkiv.html" aria-current="page">Arkiv</a>
+      <a href="upplagg.html">Upplägg</a>
+      <a href="tips.html">Tips</a>
+    </nav>
+  </header>
+
+  <main class="wrap" style="gap:32px">
+    <div class="page-head">
+      <h1>Artiklar och presentationer</h1>
+      <p class="lede">Alla artiklar vi har gått igenom, med länkar till artikel och presentationsbilder.</p>
+    </div>
+
+    <div class="toolbar">
+      <label class="search">
+        <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#3E5953" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>
+        <span class="sr-only">Sök i arkivet</span>
+        <input id="archive-search" type="search" placeholder="Sök titel eller presentatör" autocomplete="off">
+      </label>
+      <div class="filters" id="year-filters" role="group" aria-label="Filtrera på år"></div>
+    </div>
+
+    <div class="stack" style="gap:12px">
+      <span class="meta" id="archive-count" aria-live="polite"></span>
+      <ul class="archive-list" id="archive-list">
+        <li class="archive-item skeleton" style="height:84px"></li>
+        <li class="archive-item skeleton" style="height:84px"></li>
+        <li class="archive-item skeleton" style="height:84px"></li>
+      </ul>
+    </div>
+
+    <p class="meta" style="margin:0">Referenserna finns också i Zotero-gruppen <a href="https://www.zotero.org/groups/6009767/psykiatrijournalclub/library" target="_blank" rel="noopener">psykiatrijournalclub</a>.</p>
+  </main>
+
+  <footer class="wrap site-footer">
+    <span>Journal Club för ST-läkare i psykiatri, Malmö</span>
+    <a href="index.html">← Till startsidan</a>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>

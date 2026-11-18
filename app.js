@@ -161,24 +161,47 @@
   }
 
   /* ---------- Calendar (.ics) ---------- */
+  // Converts a Stockholm wall-clock time on a given date to a UTC timestamp,
+  // so every calendar app (Outlook included) places the event correctly.
+  function stockholmToUTC(date, hhmm) {
+    const [h, m] = hhmm.split(":").map(Number);
+    const guess = Date.UTC(date.getFullYear(), date.getMonth(), date.getDate(), h, m);
+    const parts = new Intl.DateTimeFormat("en-GB", {
+      timeZone: "Europe/Stockholm", year: "numeric", month: "2-digit", day: "2-digit",
+      hour: "2-digit", minute: "2-digit", hourCycle: "h23",
+    }).formatToParts(new Date(guess)).reduce((o, p) => (o[p.type] = p.value, o), {});
+    const shown = Date.UTC(+parts.year, +parts.month - 1, +parts.day, +parts.hour, +parts.minute);
+    return new Date(guess - (shown - guess));
+  }
+
+  function icsStamp(d) { return d.toISOString().replace(/[-:]/g, "").replace(/\.\d{3}/, ""); }
+
+  // RFC 5545: lines longer than 75 octets are folded with CRLF + space.
+  function fold(line) {
+    const out = [];
+    let rest = line;
+    while (rest.length > 60) { out.push(rest.slice(0, 60)); rest = " " + rest.slice(60); }
+    out.push(rest);
+    return out.join("\r\n");
+  }
+
   function icsFor(s) {
     const pad = (n) => String(n).padStart(2, "0");
     const day = s.date.getFullYear() + pad(s.date.getMonth() + 1) + pad(s.date.getDate());
-    const t = (hhmm) => hhmm.replace(":", "") + "00";
     const esc = (v) => String(v).replace(/[\\;,]/g, (c) => "\\" + c).replace(/\n/g, "\\n");
     const summary = "Journal Club: " + (s.title || "artikel meddelas") + (s.who ? " (" + s.who + ")" : "");
     return [
-      "BEGIN:VCALENDAR", "VERSION:2.0", "PRODID:-//Journal Club Psykiatri Malmo//SV",
+      "BEGIN:VCALENDAR", "VERSION:2.0", "PRODID:-//Journal Club Psykiatri Malmo//SV", "METHOD:PUBLISH",
       "BEGIN:VEVENT",
-      "UID:jc-" + day + "@jillykid.github.io",
-      "DTSTAMP:" + new Date().toISOString().replace(/[-:]/g, "").slice(0, 15) + "Z",
-      "DTSTART;TZID=Europe/Stockholm:" + day + "T" + t(CONFIG.startTime),
-      "DTEND;TZID=Europe/Stockholm:" + day + "T" + t(CONFIG.endTime),
+      "UID:jc-" + day + "@journalclub.psykkonsult.se",
+      "DTSTAMP:" + icsStamp(new Date()),
+      "DTSTART:" + icsStamp(stockholmToUTC(s.date, CONFIG.startTime)),
+      "DTEND:" + icsStamp(stockholmToUTC(s.date, CONFIG.endTime)),
       "SUMMARY:" + esc(summary),
       "LOCATION:" + esc(CONFIG.location),
       s.articleURL ? "URL:" + s.articleURL : "",
       "END:VEVENT", "END:VCALENDAR",
-    ].filter(Boolean).join("\r\n");
+    ].filter(Boolean).map(fold).join("\r\n") + "\r\n";
   }
 
   function downloadICS(s) {

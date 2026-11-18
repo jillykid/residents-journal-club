@@ -225,7 +225,6 @@
           ]),
         ]),
         el("div", { class: "person" }, [
-          el("span", { class: "avatar", "aria-hidden": "true", text: initials(s.who) }),
           el("span", { class: "person-text" }, [
             el("strong", { text: s.who || "Presentatör meddelas" }),
             el("span", { class: "meta", text: "kl. " + CONFIG.startTime.replace(":00", "") + "–" + CONFIG.endTime.replace(":00", "") + " · Psykiatrihuset & Teams" }),
@@ -265,7 +264,7 @@
       return el("div", { class: "card" }, [
         el("span", { class: "card-date", text: fmtLong(s.date) }),
         el("span", { class: "card-title", text: s.title || "Artikel meddelas senare" }),
-        el("span", { class: "person-sm" }, [el("span", { class: "avatar avatar-sm", "aria-hidden": "true", text: initials(s.who) }), document.createTextNode(s.who)]),
+        el("span", { class: "person-sm", text: s.who }),
       ]);
     }));
   }
@@ -321,7 +320,7 @@
         el("span", { class: "archive-main" }, [
           el("span", { class: "card-title", text: s.title }),
           s.ref ? el("span", { class: "ref", text: s.ref }) : null,
-          el("span", { class: "person-sm" }, [el("span", { class: "avatar avatar-sm", "aria-hidden": "true", text: initials(s.who) }), document.createTextNode(s.who)]),
+          el("span", { class: "person-sm", text: s.who }),
         ]),
         el("span", { class: "archive-links" }, linksFor(s)),
       ])));

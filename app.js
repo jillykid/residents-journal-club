@@ -8,7 +8,7 @@
   const CONFIG = {
     scriptURL: "https://script.google.com/macros/s/AKfycbwc2NQL5Kd1Zx5F-Rd8k4VGunhBWGg-WrykQqjtY8nVr9Zkby-U3tUwk7iTfEN9Nmr7ng/exec",
     sheets: { schedule: "Schema", archive: "Artiklar och Presentationer", tips: "Tips och inspiration" },
-    teamsURL: "", // Lägg in Teams-länken här så visas knappen "Anslut via Teams"
+    teamsURL: "https://teams.microsoft.com/l/meetup-join/19%3ameeting_YTZlMGIyYWItZDc2Zi00MTc1LWIxOGMtMmM3ZTIxYzQ1MDE3%40thread.v2/0?context=%7b%22Tid%22%3a%2292f52389-3f0f-4623-9a3b-957c32d194e5%22%2c%22Oid%22%3a%22c3689e8b-3161-4d04-92ef-88ae1766b296%22%7d", // Teams-länken – töm strängen för att dölja knappen "Anslut via Teams"
     startTime: "13:00",
     endTime: "14:00",
     location: "Psykiatrihuset, Jan Waldenströms gata 6, Malmö (även via Teams)",
@@ -203,6 +203,7 @@
       "DTEND:" + icsStamp(stockholmToUTC(s.date, CONFIG.endTime)),
       "SUMMARY:" + esc(summary),
       "LOCATION:" + esc(CONFIG.location),
+      CONFIG.teamsURL ? "DESCRIPTION:" + esc("Anslut via Teams: " + CONFIG.teamsURL + (s.articleURL ? "\nArtikel: " + s.articleURL : "")) : "",
       s.articleURL ? "URL:" + s.articleURL : "",
       "END:VEVENT", "END:VCALENDAR",
     ].filter(Boolean).map(fold).join("\r\n") + "\r\n";

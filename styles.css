@@ -132,11 +132,11 @@ main.wrap { padding-top: 48px; padding-bottom: 72px; display: flex; flex-directi
 .kicker { font-weight: 600; font-size: 14px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--coral-ink); }
 .lede { margin: 0; font-size: 18px; color: var(--muted); max-width: 470px; }
 
-.hero-side { flex: 1 1 440px; min-width: 0; display: flex; flex-direction: column; align-items: center; }
-.hero-illustration { display: block; width: 100%; max-width: 480px; height: auto; margin-bottom: -12px; }
+.hero-side { flex: 1 1 380px; min-width: 0; display: flex; align-items: center; justify-content: center; }
+.hero-illustration { display: block; width: 100%; max-width: 460px; height: auto; }
 .next-card {
-  align-self: stretch;
   min-width: 0;
+  margin-top: -24px;
   background: var(--surface);
   border-radius: var(--radius-lg);
   overflow: hidden;
@@ -154,8 +154,11 @@ main.wrap { padding-top: 48px; padding-bottom: 72px; display: flex; flex-directi
 }
 .eyebrow { font-weight: 600; font-size: 14px; letter-spacing: 0.08em; text-transform: uppercase; color: #CFE3DC; }
 .countdown { padding: 6px 12px; border-radius: 999px; background: var(--peach); color: #5A1F10; font-weight: 700; font-size: 13px; }
-.next-body { padding: 28px; display: flex; flex-direction: column; gap: 20px; }
-.next-main { display: flex; gap: 20px; align-items: center; }
+.next-body { padding: 28px; display: flex; flex-wrap: wrap; align-items: center; gap: 20px 32px; }
+.next-main { flex: 1 1 420px; min-width: 0; display: flex; gap: 20px; align-items: center; }
+.next-body .person { flex: 0 0 auto; }
+.next-body .btn-row { flex: 1 1 100%; }
+.next-body > .next-title.pending, .next-body > .meta { flex: 1 1 100%; }
 .date-tile {
   flex: 0 0 auto;
   width: 84px;
@@ -295,5 +298,6 @@ main.wrap { padding-top: 48px; padding-bottom: 72px; display: flex; flex-directi
   .next-body, .banner { padding: 24px; }
   .section-head h2 { font-size: 26px; }
   .archive-date { flex-basis: 100%; }
-  .hero-illustration { max-width: 320px; }
+  .hero-illustration { max-width: 300px; }
+  .next-card { margin-top: -16px; }
 }

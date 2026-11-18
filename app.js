@@ -13,6 +13,10 @@
     endTime: "14:00",
     location: "Psykiatrihuset, Jan Waldenströms gata 6, Malmö (även via Teams)",
     cacheMinutes: 10,
+    organisers: [
+      { label: "Mejla Jill", email: "jillian.howlin@skane.se" },
+      { label: "Mejla Mark", email: "mark.kisch@skane.se" },
+    ],
   };
 
   /* ---------- Data loading (with short session cache) ---------- */
@@ -259,6 +263,12 @@
     card.replaceChildren(top, body);
   }
 
+  function contactButtons(dateText) {
+    const subject = "Journal Club – vill presentera" + (dateText ? " " + dateText : "");
+    return el("span", { class: "btn-row", style: "margin-top:4px" }, CONFIG.organisers.map((o) =>
+      el("a", { class: "btn btn-light btn-sm", href: "mailto:" + o.email + "?subject=" + encodeURIComponent(subject), text: o.label })));
+  }
+
   function renderUpcoming(list) {
     const box = document.getElementById("upcoming");
     if (!box) return;
@@ -266,6 +276,7 @@
       box.replaceChildren(el("div", { class: "card empty" }, [
         el("span", { class: "card-title", text: "Inga fler datum inlagda ännu" }),
         el("span", { class: "meta", text: "Vill du presentera? Hör av dig till arrangörerna." }),
+        contactButtons(""),
       ]));
       return;
     }
@@ -282,6 +293,7 @@
           el("span", { class: "card-date", text: fmtLong(s.date) }),
           el("strong", { style: "color: var(--coral-ink)", text: "Ledig plats" }),
           el("span", { class: "meta", style: "color:#5A3A30", text: "Vill du presentera? Hör av dig till arrangörerna." }),
+          contactButtons(fmtLong(s.date)),
         ]);
       }
       return el("div", { class: "card" }, [

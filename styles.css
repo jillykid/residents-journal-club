@@ -298,6 +298,10 @@ main.wrap { padding-top: 48px; padding-bottom: 72px; display: flex; flex-directi
   .next-body, .banner { padding: 24px; }
   .section-head h2 { font-size: 26px; }
   .archive-date { flex-basis: 100%; }
-  .hero-illustration { max-width: 300px; }
-  .next-card { margin-top: -16px; }
+  .hero-illustration { max-width: 240px; }
+  .next-card { margin-top: -24px; }
+  .next-main { flex-direction: column; align-items: flex-start; gap: 14px; }
+  .date-tile { width: auto; height: auto; flex-direction: row; gap: 8px; padding: 8px 14px; border-radius: 999px; }
+  .date-tile strong { font-size: 20px; }
+  .next-title { font-size: 20px; }
 }

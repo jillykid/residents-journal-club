@@ -404,6 +404,44 @@
     }
   }
 
+  /* ---------- Install as app ---------- */
+  function setupInstall() {
+    if ("serviceWorker" in navigator) {
+      navigator.serviceWorker.register("sw.js").catch(() => { /* not essential */ });
+    }
+    const btn = document.getElementById("install-btn");
+    if (!btn) return;
+    const standalone = window.matchMedia("(display-mode: standalone)").matches || navigator.standalone === true;
+    if (standalone) return;
+
+    const ua = navigator.userAgent;
+    const isIOS = /iPhone|iPad|iPod/.test(ua) || (/Macintosh/.test(ua) && navigator.maxTouchPoints > 1);
+    if (isIOS) {
+      const dialog = document.getElementById("ios-install");
+      btn.hidden = false;
+      btn.addEventListener("click", () => {
+        if (dialog && typeof dialog.showModal === "function") dialog.showModal();
+      });
+      return;
+    }
+
+    let deferred = null;
+    window.addEventListener("beforeinstallprompt", (e) => {
+      e.preventDefault();
+      deferred = e;
+      btn.hidden = false;
+    });
+    btn.addEventListener("click", async () => {
+      if (!deferred) return;
+      deferred.prompt();
+      await deferred.userChoice.catch(() => null);
+      deferred = null;
+      btn.hidden = true;
+    });
+    window.addEventListener("appinstalled", () => { btn.hidden = true; });
+  }
+  setupInstall();
+
   const page = document.body.dataset.page;
   if (page === "home") initHome();
   if (page === "archive") initArchive();

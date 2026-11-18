@@ -287,6 +287,24 @@ main.wrap { padding-top: 48px; padding-bottom: 72px; display: flex; flex-directi
 .step strong { font-family: var(--font-display); font-weight: 800; font-size: 30px; color: var(--primary); }
 .tip-meta { font-size: 14px; color: var(--muted); }
 
+/* ---------- Install as app ---------- */
+#install-btn[hidden] { display: none; }
+.install-dialog {
+  border: 0;
+  border-radius: var(--radius-lg);
+  padding: 28px;
+  max-width: min(420px, calc(100vw - 32px));
+  color: var(--ink);
+  background: var(--surface);
+  box-shadow: var(--shadow);
+}
+.install-dialog::backdrop { background: rgba(22, 48, 43, 0.45); }
+.install-dialog h2 { font-size: 22px; font-weight: 700; margin-bottom: 16px; }
+.install-steps { list-style: none; margin: 0 0 20px; padding: 0; display: flex; flex-direction: column; gap: 14px; }
+.install-steps li { display: flex; gap: 14px; align-items: flex-start; }
+.step-icon { flex: 0 0 auto; width: 40px; height: 40px; border-radius: 12px; background: var(--primary-soft); display: flex; align-items: center; justify-content: center; }
+.install-dialog form { display: flex; justify-content: flex-end; }
+
 /* ---------- Footer ---------- */
 .site-footer { padding: 32px 24px 48px; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px; font-size: 14px; color: var(--muted); }
 .site-footer a { color: var(--muted); }
